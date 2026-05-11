@@ -1,3 +1,14 @@
+export const config = { api: { bodyParser: false } };
+
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    req.on('data', c => chunks.push(c));
+    req.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+    req.on('error', reject);
+  });
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -12,7 +23,7 @@ export default async function handler(req, res) {
   const path  = 'samba-import.xml';
 
   try {
-    const xml = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
+    const xml = await readBody(req);
     const content = Buffer.from(xml).toString('base64');
 
     // Get current SHA if file exists (needed for update)
@@ -20,10 +31,7 @@ export default async function handler(req, res) {
     const getRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
       headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' }
     });
-    if (getRes.ok) {
-      const data = await getRes.json();
-      sha = data.sha;
-    }
+    if (getRes.ok) sha = (await getRes.json()).sha;
 
     const body = { message: 'Update samba-import.xml', content };
     if (sha) body.sha = sha;
