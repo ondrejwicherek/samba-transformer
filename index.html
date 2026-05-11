@@ -203,7 +203,7 @@
       <input type="text" id="urlField" readonly />
       <button class="btn-copy" id="copyBtn">Kopírovat</button>
     </div>
-    <p class="url-note">Platnost odkazu: 14 dní. Při dalším generování vznikne nový odkaz.</p>
+    <p class="url-note">Platnost odkazu: 1 rok (dpaste.org). Při dalším generování vznikne nový odkaz.</p>
   </div>
 </div>
 
@@ -215,31 +215,35 @@
 
 <script>
 const DIRECT_FIELDS = [
-  { xml: 'EMAIL',      label: 'Email',    hints: ['email','e-mail','mail'] },
-  { xml: 'FIRST_NAME', label: 'Jméno',   hints: ['jmeno','firstname','first_name','krestni','křestní'] },
+  { xml: 'EMAIL',      label: 'Email',    hints: ['emailadresa','email adresa','e-mail','mail','email'] },
+  { xml: 'FIRST_NAME', label: 'Jméno',   hints: ['krestni','křestní','jmeno','firstname','first_name'] },
   { xml: 'LAST_NAME',  label: 'Příjmení',hints: ['prijmeni','příjmení','lastname','last_name','surname'] },
 ];
 const PARAM_FIELDS = [
   { name: 'IČO',           hints: ['ico','ičo','ic'] },
-  { name: 'ID Firmy',      hints: ['id firmy','id_firmy','idfirmy','company_id'] },
-  { name: 'Souhlas',       hints: ['souhlas','consent','gdpr'] },
-  { name: 'Sektor',        hints: ['sektor','sector'] },
-  { name: 'Segment',       hints: ['segment'] },
+  { name: 'ID Firmy',      hints: ['id adress','idadress','id firmy','id_firmy','idfirmy','company_id'] },
+  { name: 'Souhlas',       hints: ['marvel mail status','marvelmail','mail status','souhlas','consent','gdpr'] },
+  { name: 'Sektor',        hints: ['statni sprava','statniSprava','sektor','sector'] },
+  { name: 'Segment',       hints: ['business type','businesstype','segment','rr'] },
   { name: 'ID Obchodníka', hints: ['id obchodnika','id_obchodnika','oz id','id oz'] },
   { name: 'JmenoOZ',       hints: ['jmenoz','jmeno oz','jméno oz'] },
   { name: 'PrijmeniOZ',    hints: ['prijmenioz','prijmeni oz','příjmení oz'] },
-  { name: 'TelefonOZ',     hints: ['telefonoz','telefon oz','phone oz','mobil oz'] },
-  { name: 'Oslovení',      hints: ['osloveni','oslovení','salutation','titul'] },
+  // 'oz' alone = full name column → special split key handled below
+  { name: 'TelefonOZ',     hints: ['telefonoz','telefon oz','tel oz','teloz','phone oz','mobil oz'] },
+  { name: 'Oslovení',      hints: ['osloveni','oslovení','salutation'] },
   { name: 'Prodeje12M',    hints: ['prodeje12m','prodeje 12m','sales12m','prodeje','obrat'] },
-  { name: 'NázevAdresy',   hints: ['nazev adresy','nazev_adresy','nazev firmy','firma','company'] },
+  { name: 'NázevAdresy',   hints: ['nazev spolecnosti','název společnosti','nazev firmy','nazev_adresy','nazev adresy','firma','company'] },
   { name: 'EmailOZ',       hints: ['emailoz','email oz','oz email'] },
   { name: 'Oslovení2',     hints: ['osloveni2','oslovení2'] },
   { name: 'PoziceOZ',      hints: ['poziceoz','pozice oz','position oz'] },
   { name: 'TymOZ',         hints: ['tymoz','tym oz','team oz'] },
 ];
+// Special: OZ full name split (one column → JmenoOZ + PrijmeniOZ)
+const OZ_SPLIT_KEY = 'split_OZ';
 const ALL_FIELDS = [
   ...DIRECT_FIELDS.map(f => ({ key:'direct_'+f.xml, label:f.label+' ['+f.xml+']', hints:f.hints })),
   ...PARAM_FIELDS.map(f => ({ key:'param_'+f.name, label:f.name, hints:f.hints })),
+  { key: OZ_SPLIT_KEY, label: 'OZ — celé jméno (auto split)', hints: ['^oz$','obchodnik','obchodní zástupce'] },
 ];
 
 let csvHeaders = [], csvRows = [], mappingSelects = {};
@@ -320,11 +324,17 @@ function norm(s) {
 }
 
 function autoMap(h) {
-  const hn=norm(h); let best=null, bestScore=0;
-  for (const f of ALL_FIELDS) for (const hint of f.hints) {
-    const hi=norm(hint);
-    if (hn===hi) return f.key;
-    if (hn.includes(hi)||hi.includes(hn)) { const s=hi.length; if(s>bestScore){best=f.key;bestScore=s;} }
+  const hn=norm(h);
+  // Exact match for standalone "oz" column
+  if (hn === 'oz') return OZ_SPLIT_KEY;
+  let best=null, bestScore=0;
+  for (const f of ALL_FIELDS) {
+    if (f.key === OZ_SPLIT_KEY) continue; // handled above
+    for (const hint of f.hints) {
+      const hi=norm(hint);
+      if (hn===hi) return f.key;
+      if (hn.includes(hi)||hi.includes(hn)) { const s=hi.length; if(s>bestScore){best=f.key;bestScore=s;} }
+    }
   }
   return best;
 }
@@ -342,7 +352,9 @@ function buildMapping() {
     DIRECT_FIELDS.forEach(f=>{ const o=document.createElement('option'); o.value='direct_'+f.xml; o.textContent=f.label+' — '+f.xml; g1.appendChild(o); });
     const g2=document.createElement('optgroup'); g2.label='Parametry';
     PARAM_FIELDS.forEach(f=>{ const o=document.createElement('option'); o.value='param_'+f.name; o.textContent=f.name; g2.appendChild(o); });
-    sel.appendChild(g1); sel.appendChild(g2);
+    const g3=document.createElement('optgroup'); g3.label='Speciální';
+    const oSplit=document.createElement('option'); oSplit.value=OZ_SPLIT_KEY; oSplit.textContent='OZ — celé jméno (auto split → Jméno + Příjmení)'; g3.appendChild(oSplit);
+    sel.appendChild(g1); sel.appendChild(g2); sel.appendChild(g3);
     if (mapped) sel.value=mapped;
     mappingSelects[h]=sel;
     mappingGrid.appendChild(lbl); mappingGrid.appendChild(arrow); mappingGrid.appendChild(sel);
@@ -372,7 +384,7 @@ generateBtn.addEventListener('click', async () => {
   msg(generateMsg,'Nahrávám XML…','info');
 
   try {
-    const url=await uploadToTransferSh(xml);
+    const url=await uploadXml(xml);
     urlField.value=url;
     urlBox.classList.add('show');
     msg(generateMsg,`Hotovo! ${count} zákazníků.`,'ok');
@@ -384,10 +396,21 @@ generateBtn.addEventListener('click', async () => {
 });
 
 function buildXML(c2f, emailCol) {
+  // Find OZ split column once
+  const ozSplitCol = csvHeaders.find(h=>c2f[h]===OZ_SPLIT_KEY);
+
   const getVal=(row,key)=>{
     const col=csvHeaders.find(h=>c2f[h]===key);
     return col ? (row[csvHeaders.indexOf(col)]||'').trim() : '';
   };
+  const getOZPart=(row,part)=>{
+    if(!ozSplitCol) return '';
+    const full=(row[csvHeaders.indexOf(ozSplitCol)]||'').trim();
+    const sp=full.indexOf(' ');
+    if(sp===-1) return part==='first' ? full : '';
+    return part==='first' ? full.slice(0,sp) : full.slice(sp+1);
+  };
+
   let xml='<?xml version="1.0" encoding="utf-8"?>\n<CUSTOMERS>\n';
   csvRows.forEach(row=>{
     const email=(row[csvHeaders.indexOf(emailCol)]||'').trim();
@@ -400,8 +423,12 @@ function buildXML(c2f, emailCol) {
     xml+=`\t\t<EMAIL>${escXml(email)}</EMAIL>\n`;
     xml+='\t\t<PARAMETERS>\n';
     PARAM_FIELDS.forEach(f=>{
+      let val=getVal(row,'param_'+f.name);
+      // Fill OZ name from split column if not directly mapped
+      if(!val && f.name==='JmenoOZ') val=getOZPart(row,'first');
+      if(!val && f.name==='PrijmeniOZ') val=getOZPart(row,'last');
       xml+='\t\t\t<PARAMETER>\n';
-      xml+=`\t\t\t\t<VALUE>${escXml(getVal(row,'param_'+f.name))}</VALUE>\n`;
+      xml+=`\t\t\t\t<VALUE>${escXml(val)}</VALUE>\n`;
       xml+=`\t\t\t\t<NAME>${escXml(f.name)}</NAME>\n`;
       xml+='\t\t\t</PARAMETER>\n';
     });
@@ -410,26 +437,22 @@ function buildXML(c2f, emailCol) {
   return xml+'</CUSTOMERS>';
 }
 
-async function uploadToTransferSh(content) {
-  const blob = new Blob([content], { type: 'application/xml' });
-  const form = new FormData();
-  form.append('file', blob, 'samba-import.xml');
+async function uploadXml(content) {
+  // dpaste.org — supports CORS, no auth, 1 year expiry
+  const params = new URLSearchParams();
+  params.set('content', content);
+  params.set('syntax', 'xml');
+  params.set('expiry_days', '365');
+  params.set('title', 'samba-import.xml');
 
-  // Try transfer.sh
-  try {
-    const r = await fetch('https://transfer.sh/', { method:'POST', body:form });
-    if (r.ok) {
-      const url = (await r.text()).trim();
-      if (url.startsWith('http')) return url;
-    }
-  } catch(_) {}
-
-  // Fallback: 0x0.st
-  const form2 = new FormData();
-  form2.append('file', blob, 'samba-import.xml');
-  const r2 = await fetch('https://0x0.st', { method:'POST', body:form2 });
-  if (!r2.ok) throw new Error(`HTTP ${r2.status}`);
-  return (await r2.text()).trim();
+  const r = await fetch('https://dpaste.org/api/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  });
+  if (!r.ok) throw new Error(`dpaste HTTP ${r.status}`);
+  const raw = (await r.text()).trim().replace(/^"|"$/g, ''); // returns "https://dpaste.org/XXXX"
+  return raw + '/raw'; // direct raw XML URL
 }
 
 copyBtn.addEventListener('click', () => {
