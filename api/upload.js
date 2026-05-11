@@ -1,5 +1,3 @@
-export const config = { api: { bodyParser: false } };
-
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -14,15 +12,10 @@ export default async function handler(req, res) {
   const path  = 'samba-import.xml';
 
   try {
-    // Read raw body from stream
-    const chunks = [];
-    for await (const chunk of req) chunks.push(chunk);
-    const buf = Buffer.concat(chunks);
-    if (!buf.length) return res.status(400).json({ error: 'Empty body' });
+    const { content } = req.body;
+    if (!content) return res.status(400).json({ error: 'Missing content field' });
 
-    // GitHub Contents API needs base64
-    const content = buf.toString('base64');
-
+    // content is already base64-encoded UTF-8 XML from the client
     let sha;
     const getRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
       headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' }

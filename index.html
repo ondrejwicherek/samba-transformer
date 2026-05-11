@@ -438,13 +438,16 @@ function buildXML(c2f, emailCol) {
 }
 
 async function uploadXml(content) {
-  // Encode to UTF-8 bytes → Blob — zero string/ByteString conversion in XHR
+  // UTF-8 encode → base64 (safe for Czech diacritics, no ByteString issues)
   const bytes = new TextEncoder().encode(content);
-  const blob = new Blob([bytes], { type: 'application/octet-stream' });
+  let binary = '';
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  const b64 = btoa(binary);
 
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://claudesambatransformer.vercel.app/api/upload');
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = () => {
       try {
         const data = JSON.parse(xhr.responseText);
@@ -453,7 +456,7 @@ async function uploadXml(content) {
       } catch(e) { reject(new Error('Bad response')); }
     };
     xhr.onerror = () => reject(new Error('Network error'));
-    xhr.send(blob);
+    xhr.send(JSON.stringify({ content: b64 }));
   });
 }
 
