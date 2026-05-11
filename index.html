@@ -460,13 +460,6 @@ async function uploadXml(content) {
     xhr.send(payload);
   });
 }
-  if (!r.ok) {
-    const err = await r.json().catch(() => ({}));
-    throw new Error(err.error || `HTTP ${r.status}`);
-  }
-  const data = await r.json();
-  return data.url;
-}
 
 copyBtn.addEventListener('click', () => {
   navigator.clipboard.writeText(urlField.value).then(()=>{
