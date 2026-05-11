@@ -438,17 +438,13 @@ function buildXML(c2f, emailCol) {
 }
 
 async function uploadXml(content) {
+  // Encode to UTF-8 bytes → Blob — zero string/ByteString conversion in XHR
   const bytes = new TextEncoder().encode(content);
-  let binary = '';
-  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
-  const b64 = btoa(binary);
-  const payload = JSON.stringify({ content: b64 });
+  const blob = new Blob([bytes], { type: 'application/octet-stream' });
 
-  // Use XHR — avoids Chrome's ByteString bug with fetch + string body
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://claudesambatransformer.vercel.app/api/upload');
-    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = () => {
       try {
         const data = JSON.parse(xhr.responseText);
@@ -457,7 +453,7 @@ async function uploadXml(content) {
       } catch(e) { reject(new Error('Bad response')); }
     };
     xhr.onerror = () => reject(new Error('Network error'));
-    xhr.send(payload);
+    xhr.send(blob);
   });
 }
 
