@@ -12,10 +12,11 @@ export default async function handler(req, res) {
   const path  = 'samba-import.xml';
 
   try {
-    const { xml } = req.body;
-    if (!xml) return res.status(400).json({ error: 'Missing xml field' });
+    const { content: b64 } = req.body;
+    if (!b64) return res.status(400).json({ error: 'Missing content field' });
 
-    const content = Buffer.from(xml, 'utf8').toString('base64');
+    // Client sends UTF-8 XML pre-encoded as base64 — use it directly for GitHub API
+    const content = b64;
 
     let sha;
     const getRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {

@@ -438,10 +438,16 @@ function buildXML(c2f, emailCol) {
 }
 
 async function uploadXml(content) {
+  // Encode to UTF-8 bytes first, then base64 — result is pure ASCII, no ByteString issues
+  const bytes = new TextEncoder().encode(content);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  const b64 = btoa(binary);
+
   const r = await fetch('https://claudesambatransformer.vercel.app/api/upload', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ xml: content })
+    body: JSON.stringify({ content: b64 })
   });
   if (!r.ok) {
     const err = await r.json().catch(() => ({}));
