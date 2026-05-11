@@ -173,12 +173,12 @@
 <!-- Step 1 -->
 <div class="card">
   <div class="card-title">1 — Nahrát CSV soubor</div>
-  <div id="dropzone">
+  <label for="fileInput" id="dropzone">
     <div class="icon">📂</div>
-    <p>Přetáhni CSV soubor sem nebo <strong id="browseLink" style="cursor:pointer">klikni pro výběr</strong></p>
+    <p>Přetáhni CSV soubor sem nebo <strong>klikni pro výběr</strong></p>
     <p style="margin-top:6px;font-size:11px;">UTF-8 nebo Windows-1250</p>
-  </div>
-  <input type="file" id="fileInput" accept=".csv,text/csv" />
+  </label>
+  <input type="file" id="fileInput" accept=".csv,text/csv" style="display:none" />
   <div class="msg" id="uploadMsg"></div>
 </div>
 
@@ -264,8 +264,6 @@ const urlField    = $('urlField');
 const copyBtn     = $('copyBtn');
 
 // Drag & drop
-$('browseLink').addEventListener('click', () => fileInput.click());
-dropzone.addEventListener('click', e => { if (e.target.id !== 'browseLink') fileInput.click(); });
 dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
 dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
 dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('drag-over'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
