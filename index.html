@@ -203,7 +203,7 @@
       <input type="text" id="urlField" readonly />
       <button class="btn-copy" id="copyBtn">Kopírovat</button>
     </div>
-    <p class="url-note">Platnost odkazu: 1 rok (dpaste.org). Při dalším generování vznikne nový odkaz.</p>
+    <p class="url-note">URL zůstává stejná při každém dalším generování (přepíše se stejný soubor). Platnost: dokud se nepoužívá 6+ dní.</p>
   </div>
 </div>
 
@@ -437,22 +437,27 @@ function buildXML(c2f, emailCol) {
   return xml+'</CUSTOMERS>';
 }
 
-async function uploadXml(content) {
-  // dpaste.org — supports CORS, no auth, 1 year expiry
-  const params = new URLSearchParams();
-  params.set('content', content);
-  params.set('syntax', 'xml');
-  params.set('expiry_days', '365');
-  params.set('title', 'samba-import.xml');
+function getBinId() {
+  let id = localStorage.getItem('samba_bin_id');
+  if (!id) {
+    id = 'samba-' + Math.random().toString(36).slice(2, 10);
+    localStorage.setItem('samba_bin_id', id);
+  }
+  return id;
+}
 
-  const r = await fetch('https://dpaste.org/api/', {
+async function uploadXml(content) {
+  const binId = getBinId();
+  const filename = 'samba-import.xml';
+  const url = `https://filebin.net/${binId}/${filename}`;
+
+  const r = await fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: params.toString()
+    headers: { 'Content-Type': 'application/octet-stream' },
+    body: content
   });
-  if (!r.ok) throw new Error(`dpaste HTTP ${r.status}`);
-  const raw = (await r.text()).trim().replace(/^"|"$/g, ''); // returns "https://dpaste.org/XXXX"
-  return raw + '/raw'; // direct raw XML URL
+  if (!r.ok) throw new Error(`filebin HTTP ${r.status}`);
+  return url; // direct URL, always the same for this browser session
 }
 
 copyBtn.addEventListener('click', () => {
