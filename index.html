@@ -33,18 +33,8 @@
       padding: 40px 20px 80px;
     }
 
-    h1 {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 36px;
-    }
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 36px; }
 
     .card {
       background: var(--surface);
@@ -74,50 +64,27 @@
       cursor: pointer;
       transition: border-color .2s, background .2s;
     }
-
-    #dropzone:hover, #dropzone.drag-over {
-      border-color: var(--accent);
-      background: rgba(92,110,248,.06);
-    }
-
-    #dropzone .icon {
-      font-size: 36px;
-      margin-bottom: 12px;
-    }
-
-    #dropzone p {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    #dropzone strong {
-      color: var(--accent-light);
-      cursor: pointer;
-    }
-
+    #dropzone:hover, #dropzone.drag-over { border-color: var(--accent); background: rgba(92,110,248,.06); }
+    #dropzone .icon { font-size: 36px; margin-bottom: 12px; }
+    #dropzone p { color: var(--muted); font-size: 13px; }
+    #dropzone strong { color: var(--accent-light); cursor: pointer; }
     #fileInput { display: none; }
 
-    /* Mapping table */
+    /* Mapping */
     .mapping-grid {
       display: grid;
       grid-template-columns: 1fr 24px 1fr;
       gap: 8px 12px;
       align-items: center;
     }
-
     .mapping-grid .header {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      color: var(--muted);
-      padding-bottom: 4px;
-      border-bottom: 1px solid var(--border);
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .05em; color: var(--muted);
+      padding-bottom: 4px; border-bottom: 1px solid var(--border);
     }
-
     .mapping-grid .arrow { color: var(--muted); text-align: center; font-size: 16px; }
 
-    select, input[type="text"] {
+    select, input[type="text"], input[type="password"] {
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -128,149 +95,107 @@
       outline: none;
       transition: border-color .2s;
     }
+    select:focus, input:focus { border-color: var(--accent); }
 
-    select:focus, input[type="text"]:focus {
-      border-color: var(--accent);
-    }
-
-    .xml-name {
-      font-size: 13px;
-      color: var(--text);
-      font-family: 'Courier New', monospace;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: rgba(92,110,248,.2);
-      color: var(--accent-light);
-      margin-left: 6px;
-      vertical-align: middle;
-    }
-
-    .badge.static {
-      background: rgba(52,211,153,.15);
-      color: var(--success);
-    }
+    .xml-name { font-size: 13px; color: var(--muted); font-family: 'Courier New', monospace; }
 
     /* Preview */
-    #previewWrap {
-      overflow-x: auto;
-    }
-
-    table.preview {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-    }
-
+    #previewWrap { overflow-x: auto; }
+    table.preview { width: 100%; border-collapse: collapse; font-size: 12px; }
     table.preview th {
-      background: var(--surface2);
-      color: var(--muted);
-      text-align: left;
-      padding: 7px 10px;
-      font-weight: 600;
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap;
+      background: var(--surface2); color: var(--muted); text-align: left;
+      padding: 7px 10px; font-weight: 600; border-bottom: 1px solid var(--border); white-space: nowrap;
     }
-
     table.preview td {
-      padding: 6px 10px;
-      border-bottom: 1px solid var(--border);
-      color: var(--text);
-      max-width: 200px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--text);
+      max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
-
     table.preview tr:last-child td { border-bottom: none; }
 
     /* Buttons */
-    .btn-row {
-      display: flex;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
+    .btn-row { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
     button {
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 10px 22px;
+      cursor: pointer; border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 600; padding: 10px 22px;
       transition: opacity .2s, transform .1s;
     }
-
     button:active { transform: scale(.97); }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
-
+    .btn-primary { background: var(--accent); color: #fff; }
     .btn-primary:hover { opacity: .88; }
     .btn-primary:disabled { opacity: .4; cursor: not-allowed; }
-
-    .btn-ghost {
-      background: var(--surface2);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
+    .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
     .btn-ghost:hover { opacity: .8; }
 
-    /* Status bar */
-    #status {
-      font-size: 12px;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-top: 14px;
-      display: none;
+    /* Status */
+    .status-msg {
+      font-size: 12px; padding: 10px 14px; border-radius: 8px;
+      margin-top: 14px; display: none;
     }
-
-    #status.ok { background: rgba(52,211,153,.12); color: var(--success); border: 1px solid rgba(52,211,153,.3); display: block; }
-    #status.err { background: rgba(239,68,68,.12); color: #f87171; border: 1px solid rgba(239,68,68,.3); display: block; }
-    #status.info { background: rgba(92,110,248,.1); color: var(--accent-light); border: 1px solid rgba(92,110,248,.3); display: block; }
+    .status-msg.ok  { background: rgba(52,211,153,.12); color: var(--success); border: 1px solid rgba(52,211,153,.3); display: block; }
+    .status-msg.err { background: rgba(239,68,68,.12); color: #f87171; border: 1px solid rgba(239,68,68,.3); display: block; }
+    .status-msg.info{ background: rgba(92,110,248,.1); color: var(--accent-light); border: 1px solid rgba(92,110,248,.3); display: block; }
 
     .hidden { display: none !important; }
+    .row-count { font-size: 12px; color: var(--muted); margin-top: 10px; }
 
-    .row-count {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 10px;
+    /* URL result box */
+    #urlResult {
+      margin-top: 20px;
+      background: var(--surface2);
+      border: 1px solid var(--success);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: none;
     }
-
-    /* Separator */
-    .sep-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 4px 0;
-      grid-column: 1 / -1;
-    }
-
-    .sep-line {
+    #urlResult.show { display: block; }
+    #urlResult .url-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--success); margin-bottom: 10px; font-weight: 600; }
+    .url-copy-row { display: flex; gap: 10px; align-items: center; }
+    .url-copy-row input {
       flex: 1;
-      height: 1px;
-      background: var(--border);
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      background: var(--surface);
+      border-color: var(--border);
+      color: var(--text);
     }
+    .btn-copy { background: var(--success); color: #0f1117; padding: 8px 16px; font-size: 13px; border-radius: 6px; white-space: nowrap; }
+    .btn-copy:hover { opacity: .85; }
 
-    .sep-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: var(--muted);
+    /* Token field */
+    .token-row { display: flex; gap: 10px; align-items: center; }
+    .token-row input { flex: 1; }
+    .token-hint { font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+    .token-hint a { color: var(--accent-light); }
+
+    /* Spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,.3); border-top-color: #fff;
+      border-radius: 50%; animation: spin .6s linear infinite;
+      vertical-align: middle; margin-right: 6px;
     }
   </style>
 </head>
 <body>
 
 <h1>Samba XML Transformer</h1>
-<p class="subtitle">Nahraj CSV → stáhni hotový XML pro Samba import</p>
+<p class="subtitle">CSV → XML na URL → Samba import</p>
+
+<!-- Token setup -->
+<div class="card" id="tokenCard">
+  <div class="card-title">0 — GitHub token (jednou, uloží se v prohlížeči)</div>
+  <div class="token-row">
+    <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+    <button class="btn-primary" id="saveTokenBtn">Uložit</button>
+  </div>
+  <p class="token-hint">
+    Token potřebuji pro nahrání XML na GitHub Gist (dostaneš raw URL pro Samba).<br>
+    Vytvoř na <a href="https://github.com/settings/tokens/new?scopes=gist&description=samba-transformer" target="_blank">github.com/settings/tokens/new</a> — stačí scope <strong>gist</strong>.
+    Token se ukládá jen v tvém prohlížeči (localStorage).
+  </p>
+  <div class="status-msg" id="tokenStatus"></div>
+</div>
 
 <!-- Step 1: Upload -->
 <div class="card">
@@ -281,7 +206,7 @@
     <p style="margin-top:6px;font-size:11px;">Podporované kódování: UTF-8, Windows-1250</p>
   </div>
   <input type="file" id="fileInput" accept=".csv,text/csv" />
-  <div id="status"></div>
+  <div class="status-msg" id="uploadStatus"></div>
 </div>
 
 <!-- Step 2: Mapping -->
@@ -290,17 +215,24 @@
   <p style="color:var(--muted);font-size:12px;margin-bottom:18px;">
     Přiřaď sloupce z CSV ke správným XML polím. Automaticky jsem se pokusil namapovat podle názvů.
   </p>
-
   <div class="mapping-grid" id="mappingGrid">
-    <!-- header row -->
     <div class="header">Sloupec v CSV</div>
     <div></div>
     <div class="header">XML pole</div>
   </div>
-
   <div class="btn-row">
-    <button class="btn-primary" id="generateBtn">Vygenerovat XML</button>
+    <button class="btn-primary" id="generateBtn">Vygenerovat &amp; nahrát na Gist</button>
     <button class="btn-ghost" id="resetBtn">Znovu nahrát</button>
+  </div>
+  <div class="status-msg" id="generateStatus"></div>
+
+  <!-- URL result -->
+  <div id="urlResult">
+    <div class="url-label">✓ XML je live na URL</div>
+    <div class="url-copy-row">
+      <input type="text" id="urlField" readonly />
+      <button class="btn-copy" id="copyBtn">Kopírovat</button>
+    </div>
   </div>
 </div>
 
@@ -311,11 +243,11 @@
 </div>
 
 <script>
-// ─── XML field definitions ───────────────────────────────────────────────────
+// ─── Field definitions ────────────────────────────────────────────────────────
 const DIRECT_FIELDS = [
-  { xml: 'EMAIL',       label: 'Email',      hints: ['email', 'e-mail', 'mail'] },
-  { xml: 'FIRST_NAME',  label: 'Jméno',      hints: ['jmeno', 'firstname', 'first_name', 'krestni', 'křestní'] },
-  { xml: 'LAST_NAME',   label: 'Příjmení',   hints: ['prijmeni', 'příjmení', 'lastname', 'last_name', 'surname'] },
+  { xml: 'EMAIL',      label: 'Email',    hints: ['email', 'e-mail', 'mail'] },
+  { xml: 'FIRST_NAME', label: 'Jméno',   hints: ['jmeno', 'firstname', 'first_name', 'krestni', 'křestní'] },
+  { xml: 'LAST_NAME',  label: 'Příjmení',hints: ['prijmeni', 'příjmení', 'lastname', 'last_name', 'surname'] },
 ];
 
 const PARAM_FIELDS = [
@@ -342,135 +274,131 @@ const ALL_FIELDS = [
   ...PARAM_FIELDS.map(f => ({ key: 'param_' + f.name, label: f.name, hints: f.hints })),
 ];
 
-// ─── State ───────────────────────────────────────────────────────────────────
-let csvHeaders = [];
-let csvRows = [];
-let mappingSelects = {}; // fieldKey → <select>
+// ─── State ────────────────────────────────────────────────────────────────────
+let csvHeaders = [], csvRows = [], mappingSelects = {};
+let currentGistId = null;
 
-// ─── DOM refs ────────────────────────────────────────────────────────────────
-const dropzone   = document.getElementById('dropzone');
-const fileInput  = document.getElementById('fileInput');
-const browseLink = document.getElementById('browseLink');
-const statusEl   = document.getElementById('status');
-const mappingCard = document.getElementById('mappingCard');
-const mappingGrid = document.getElementById('mappingGrid');
-const previewCard = document.getElementById('previewCard');
-const previewWrap = document.getElementById('previewWrap');
-const generateBtn = document.getElementById('generateBtn');
-const resetBtn    = document.getElementById('resetBtn');
+// ─── DOM refs ─────────────────────────────────────────────────────────────────
+const dropzone      = document.getElementById('dropzone');
+const fileInput     = document.getElementById('fileInput');
+const browseLink    = document.getElementById('browseLink');
+const uploadStatus  = document.getElementById('uploadStatus');
+const mappingCard   = document.getElementById('mappingCard');
+const mappingGrid   = document.getElementById('mappingGrid');
+const previewCard   = document.getElementById('previewCard');
+const previewWrap   = document.getElementById('previewWrap');
+const generateBtn   = document.getElementById('generateBtn');
+const resetBtn      = document.getElementById('resetBtn');
+const generateStatus= document.getElementById('generateStatus');
 const rowCountBadge = document.getElementById('rowCountBadge');
+const urlResult     = document.getElementById('urlResult');
+const urlField      = document.getElementById('urlField');
+const copyBtn       = document.getElementById('copyBtn');
+const tokenInput    = document.getElementById('tokenInput');
+const saveTokenBtn  = document.getElementById('saveTokenBtn');
+const tokenStatus   = document.getElementById('tokenStatus');
+const tokenCard     = document.getElementById('tokenCard');
+
+// ─── Token ────────────────────────────────────────────────────────────────────
+const savedToken = localStorage.getItem('gh_gist_token');
+if (savedToken) {
+  tokenInput.value = savedToken;
+  showStatus(tokenStatus, 'Token načten z prohlížeče.', 'ok');
+}
+
+saveTokenBtn.addEventListener('click', async () => {
+  const t = tokenInput.value.trim();
+  if (!t) { showStatus(tokenStatus, 'Zadej token.', 'err'); return; }
+  saveTokenBtn.disabled = true;
+  saveTokenBtn.innerHTML = '<span class="spinner"></span>Ověřuji…';
+  try {
+    const r = await fetch('https://api.github.com/user', { headers: { Authorization: 'token ' + t } });
+    if (!r.ok) throw new Error('Neplatný token (HTTP ' + r.status + ')');
+    const u = await r.json();
+    localStorage.setItem('gh_gist_token', t);
+    showStatus(tokenStatus, `Token OK — přihlášen jako ${u.login}`, 'ok');
+  } catch (e) {
+    showStatus(tokenStatus, e.message, 'err');
+  }
+  saveTokenBtn.disabled = false;
+  saveTokenBtn.textContent = 'Uložit';
+});
 
 // ─── Drag & drop ─────────────────────────────────────────────────────────────
 browseLink.addEventListener('click', () => fileInput.click());
 dropzone.addEventListener('click', e => { if (e.target !== browseLink) fileInput.click(); });
 dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
 dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
-dropzone.addEventListener('drop', e => {
-  e.preventDefault();
-  dropzone.classList.remove('drag-over');
-  const file = e.dataTransfer.files[0];
-  if (file) handleFile(file);
-});
-fileInput.addEventListener('change', () => {
-  if (fileInput.files[0]) handleFile(fileInput.files[0]);
-});
+dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('drag-over'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
 
 // ─── File handling ────────────────────────────────────────────────────────────
 function handleFile(file) {
-  if (!file.name.toLowerCase().endsWith('.csv')) {
-    showStatus('Soubor musí mít příponu .csv', 'err');
-    return;
-  }
-
+  if (!file.name.toLowerCase().endsWith('.csv')) { showStatus(uploadStatus, 'Soubor musí mít příponu .csv', 'err'); return; }
   const reader = new FileReader();
-  reader.onload = e => {
-    try {
-      const text = e.target.result;
-      parseCSV(text);
-    } catch (err) {
-      showStatus('Chyba při čtení souboru: ' + err.message, 'err');
-    }
-  };
-  // Try UTF-8 first; if the result has replacement chars, try win1250
-  reader.readAsText(file, 'UTF-8');
   reader._file = file;
   reader.onload = e => {
     let text = e.target.result;
-    if (text.includes('�')) {
-      // Re-read as windows-1250
+    if (text.includes('')) {
       const r2 = new FileReader();
       r2.onload = e2 => parseCSV(e2.target.result);
       r2.readAsText(reader._file, 'windows-1250');
-    } else {
-      parseCSV(text);
-    }
+    } else { parseCSV(text); }
   };
+  reader.readAsText(file, 'UTF-8');
 }
 
 function parseCSV(text) {
-  const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
-  const nonEmpty = lines.filter(l => l.trim() !== '');
-  if (nonEmpty.length < 2) { showStatus('CSV soubor je prázdný nebo nemá data.', 'err'); return; }
-
-  const delimiter = detectDelimiter(nonEmpty[0]);
-  csvHeaders = parseLine(nonEmpty[0], delimiter);
-  csvRows = nonEmpty.slice(1).map(l => parseLine(l, delimiter));
-
-  showStatus(`Načteno ${csvRows.length} řádků, ${csvHeaders.length} sloupců (oddělovač: "${delimiter}")`, 'ok');
+  const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n').filter(l => l.trim());
+  if (lines.length < 2) { showStatus(uploadStatus, 'CSV je prázdné.', 'err'); return; }
+  const delim = detectDelimiter(lines[0]);
+  csvHeaders = parseLine(lines[0], delim);
+  csvRows = lines.slice(1).map(l => parseLine(l, delim));
+  showStatus(uploadStatus, `Načteno ${csvRows.length} řádků, ${csvHeaders.length} sloupců (oddělovač: "${delim}")`, 'ok');
   buildMappingUI();
   buildPreview();
   mappingCard.classList.remove('hidden');
   previewCard.classList.remove('hidden');
   rowCountBadge.textContent = `(${csvRows.length} řádků)`;
+  urlResult.classList.remove('show');
 }
 
 function detectDelimiter(line) {
-  const counts = { ',': 0, ';': 0, '\t': 0 };
-  for (const c of line) if (c in counts) counts[c]++;
-  return Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+  const c = { ',': 0, ';': 0, '\t': 0 };
+  for (const ch of line) if (ch in c) c[ch]++;
+  return Object.entries(c).sort((a, b) => b[1] - a[1])[0][0];
 }
 
-function parseLine(line, delimiter) {
-  const result = [];
-  let current = '';
-  let inQuotes = false;
+function parseLine(line, d) {
+  const r = []; let cur = '', q = false;
   for (let i = 0; i < line.length; i++) {
     const c = line[i];
-    if (c === '"') {
-      if (inQuotes && line[i + 1] === '"') { current += '"'; i++; }
-      else inQuotes = !inQuotes;
-    } else if (c === delimiter && !inQuotes) {
-      result.push(current.trim());
-      current = '';
-    } else {
-      current += c;
-    }
+    if (c === '"') { if (q && line[i+1] === '"') { cur += '"'; i++; } else q = !q; }
+    else if (c === d && !q) { r.push(cur.trim()); cur = ''; }
+    else cur += c;
   }
-  result.push(current.trim());
-  return result;
+  r.push(cur.trim()); return r;
 }
 
 // ─── Auto-mapping ─────────────────────────────────────────────────────────────
-function normalizeHint(s) {
+function norm(s) {
   return s.toLowerCase()
-    .replace(/[áàâä]/g, 'a').replace(/[čć]/g, 'c').replace(/[éèêë]/g, 'e')
-    .replace(/[íìîï]/g, 'i').replace(/[óòôö]/g, 'o').replace(/[šś]/g, 's')
-    .replace(/[úùûü]/g, 'u').replace(/[ýÿ]/g, 'y').replace(/[žź]/g, 'z')
-    .replace(/[řŕ]/g, 'r').replace(/[ňń]/g, 'n').replace(/[ďd]/g, 'd')
-    .replace(/[ťt]/g, 't').replace(/[\s_\-]+/g, '');
+    .replace(/[áàâä]/g,'a').replace(/[čć]/g,'c').replace(/[éèêë]/g,'e')
+    .replace(/[íìîï]/g,'i').replace(/[óòôö]/g,'o').replace(/[šś]/g,'s')
+    .replace(/[úùûü]/g,'u').replace(/[ýÿ]/g,'y').replace(/[žź]/g,'z')
+    .replace(/[řŕ]/g,'r').replace(/[ňń]/g,'n').replace(/[\s_\-]+/g,'');
 }
 
-function autoMap(headerName) {
-  const hn = normalizeHint(headerName);
-  let best = null;
-  let bestScore = 0;
-  for (const field of ALL_FIELDS) {
-    for (const hint of field.hints) {
-      const h = normalizeHint(hint);
-      if (hn === h) return field.key; // exact match
-      if (hn.includes(h) || h.includes(hn)) {
-        const score = h.length;
-        if (score > bestScore) { best = field.key; bestScore = score; }
+function autoMap(h) {
+  const hn = norm(h);
+  let best = null, bestScore = 0;
+  for (const f of ALL_FIELDS) {
+    for (const hint of f.hints) {
+      const hi = norm(hint);
+      if (hn === hi) return f.key;
+      if (hn.includes(hi) || hi.includes(hn)) {
+        const s = hi.length;
+        if (s > bestScore) { best = f.key; bestScore = s; }
       }
     }
   }
@@ -479,183 +407,160 @@ function autoMap(headerName) {
 
 // ─── Mapping UI ──────────────────────────────────────────────────────────────
 function buildMappingUI() {
-  // Clear existing rows (keep header)
   while (mappingGrid.children.length > 3) mappingGrid.removeChild(mappingGrid.lastChild);
   mappingSelects = {};
-
-  // Add separator before params
-  let addedParamSep = false;
-
   csvHeaders.forEach(header => {
     const mapped = autoMap(header);
-    const isParam = mapped && mapped.startsWith('param_');
-
-    if (isParam && !addedParamSep && !csvHeaders.some((h, i) => i < csvHeaders.indexOf(header) && autoMap(h)?.startsWith('param_'))) {
-      // skip sep for now — we'll do it simply
-    }
-
-    // CSV column label
-    const csvLabel = document.createElement('div');
-    csvLabel.className = 'xml-name';
-    csvLabel.style.color = 'var(--muted)';
-    csvLabel.textContent = header;
-
+    const lbl = document.createElement('div');
+    lbl.className = 'xml-name'; lbl.textContent = header;
     const arrow = document.createElement('div');
-    arrow.className = 'arrow';
-    arrow.textContent = '→';
-
-    // Select
+    arrow.className = 'arrow'; arrow.textContent = '→';
     const sel = document.createElement('select');
     sel.innerHTML = '<option value="">(přeskočit)</option>';
-
-    // Direct fields group
-    const gDirect = document.createElement('optgroup');
-    gDirect.label = 'Přímá pole';
-    DIRECT_FIELDS.forEach(f => {
-      const opt = document.createElement('option');
-      opt.value = 'direct_' + f.xml;
-      opt.textContent = f.label + ' — ' + f.xml;
-      gDirect.appendChild(opt);
-    });
-    sel.appendChild(gDirect);
-
-    // Param fields group
-    const gParam = document.createElement('optgroup');
-    gParam.label = 'Parametry';
-    PARAM_FIELDS.forEach(f => {
-      const opt = document.createElement('option');
-      opt.value = 'param_' + f.name;
-      opt.textContent = f.name;
-      gParam.appendChild(opt);
-    });
-    sel.appendChild(gParam);
-
+    const g1 = document.createElement('optgroup'); g1.label = 'Přímá pole';
+    DIRECT_FIELDS.forEach(f => { const o = document.createElement('option'); o.value = 'direct_' + f.xml; o.textContent = f.label + ' — ' + f.xml; g1.appendChild(o); });
+    const g2 = document.createElement('optgroup'); g2.label = 'Parametry';
+    PARAM_FIELDS.forEach(f => { const o = document.createElement('option'); o.value = 'param_' + f.name; o.textContent = f.name; g2.appendChild(o); });
+    sel.appendChild(g1); sel.appendChild(g2);
     if (mapped) sel.value = mapped;
-
     mappingSelects[header] = sel;
-    mappingGrid.appendChild(csvLabel);
-    mappingGrid.appendChild(arrow);
-    mappingGrid.appendChild(sel);
+    mappingGrid.appendChild(lbl); mappingGrid.appendChild(arrow); mappingGrid.appendChild(sel);
   });
 }
 
-// ─── Preview table ────────────────────────────────────────────────────────────
+// ─── Preview ─────────────────────────────────────────────────────────────────
 function buildPreview() {
-  const maxRows = Math.min(csvRows.length, 5);
-  let html = '<table class="preview"><thead><tr>';
-  csvHeaders.forEach(h => { html += `<th>${esc(h)}</th>`; });
-  html += '</tr></thead><tbody>';
-  for (let i = 0; i < maxRows; i++) {
-    html += '<tr>';
-    csvHeaders.forEach((h, j) => { html += `<td title="${esc(csvRows[i][j] || '')}">${esc(csvRows[i][j] || '')}</td>`; });
-    html += '</tr>';
+  const max = Math.min(csvRows.length, 5);
+  let html = '<table class="preview"><thead><tr>' + csvHeaders.map(h => `<th>${esc(h)}</th>`).join('') + '</tr></thead><tbody>';
+  for (let i = 0; i < max; i++) {
+    html += '<tr>' + csvHeaders.map((h, j) => `<td title="${esc(csvRows[i][j]||'')}">${esc(csvRows[i][j]||'')}</td>`).join('') + '</tr>';
   }
   html += '</tbody></table>';
-  if (csvRows.length > maxRows) {
-    html += `<p class="row-count">…a dalších ${csvRows.length - maxRows} řádků</p>`;
-  }
+  if (csvRows.length > max) html += `<p class="row-count">…a dalších ${csvRows.length - max} řádků</p>`;
   previewWrap.innerHTML = html;
 }
 
-// ─── Generate XML ─────────────────────────────────────────────────────────────
-generateBtn.addEventListener('click', generateXML);
+// ─── Generate & upload ────────────────────────────────────────────────────────
+generateBtn.addEventListener('click', async () => {
+  const token = localStorage.getItem('gh_gist_token');
+  if (!token) { showStatus(generateStatus, 'Nejdřív ulož GitHub token nahoře.', 'err'); return; }
 
-function generateXML() {
-  // Build reverse map: csvHeader → fieldKey
   const colToField = {};
-  csvHeaders.forEach(h => {
-    const val = mappingSelects[h].value;
-    if (val) colToField[h] = val;
-  });
+  csvHeaders.forEach(h => { const v = mappingSelects[h].value; if (v) colToField[h] = v; });
 
-  // Check EMAIL is mapped
   const emailCol = csvHeaders.find(h => colToField[h] === 'direct_EMAIL');
-  if (!emailCol) {
-    showStatus('Musíš namapovat sloupec na pole Email (EMAIL).', 'err');
-    return;
+  if (!emailCol) { showStatus(generateStatus, 'Namapuj sloupec na pole Email.', 'err'); return; }
+
+  const xml = buildXML(colToField, emailCol);
+
+  generateBtn.disabled = true;
+  generateBtn.innerHTML = '<span class="spinner"></span>Nahrávám na Gist…';
+  showStatus(generateStatus, 'Nahrávám…', 'info');
+
+  try {
+    const rawUrl = await uploadToGist(token, xml);
+    urlField.value = rawUrl;
+    urlResult.classList.add('show');
+    showStatus(generateStatus, `Hotovo! ${csvRows.filter(r => (r[csvHeaders.indexOf(emailCol)]||'').trim()).length} zákazníků nahráno.`, 'ok');
+  } catch (e) {
+    showStatus(generateStatus, 'Chyba při nahrávání: ' + e.message, 'err');
   }
 
+  generateBtn.disabled = false;
+  generateBtn.innerHTML = 'Vygenerovat &amp; nahrát na Gist';
+});
+
+function buildXML(colToField, emailCol) {
+  const getVal = (row, fieldKey) => {
+    const col = csvHeaders.find(h => colToField[h] === fieldKey);
+    if (!col) return '';
+    return (row[csvHeaders.indexOf(col)] || '').trim();
+  };
+
   let xml = '<?xml version="1.0" encoding="utf-8"?>\n<CUSTOMERS>\n';
-
   csvRows.forEach(row => {
-    const getVal = (fieldKey) => {
-      const col = csvHeaders.find(h => colToField[h] === fieldKey);
-      if (!col) return '';
-      const idx = csvHeaders.indexOf(col);
-      return (row[idx] || '').trim();
-    };
-
-    const email = getVal('direct_EMAIL');
-    if (!email) return; // skip empty rows
-
+    const email = (row[csvHeaders.indexOf(emailCol)] || '').trim();
+    if (!email) return;
     xml += '\t<CUSTOMER>\n';
     xml += `\t\t<CUSTOMER_ID>imported-${escXml(email)}</CUSTOMER_ID>\n`;
     xml += `\t\t<NEWSLETTER_FREQUENCY>every day</NEWSLETTER_FREQUENCY>\n`;
-    xml += `\t\t<LAST_NAME>${escXml(getVal('direct_LAST_NAME'))}</LAST_NAME>\n`;
-    xml += `\t\t<FIRST_NAME>${escXml(getVal('direct_FIRST_NAME'))}</FIRST_NAME>\n`;
+    xml += `\t\t<LAST_NAME>${escXml(getVal(row, 'direct_LAST_NAME'))}</LAST_NAME>\n`;
+    xml += `\t\t<FIRST_NAME>${escXml(getVal(row, 'direct_FIRST_NAME'))}</FIRST_NAME>\n`;
     xml += `\t\t<EMAIL>${escXml(email)}</EMAIL>\n`;
     xml += '\t\t<PARAMETERS>\n';
-
     PARAM_FIELDS.forEach(f => {
-      const val = getVal('param_' + f.name);
       xml += '\t\t\t<PARAMETER>\n';
-      xml += `\t\t\t\t<VALUE>${escXml(val)}</VALUE>\n`;
+      xml += `\t\t\t\t<VALUE>${escXml(getVal(row, 'param_' + f.name))}</VALUE>\n`;
       xml += `\t\t\t\t<NAME>${escXml(f.name)}</NAME>\n`;
       xml += '\t\t\t</PARAMETER>\n';
     });
+    xml += '\t\t</PARAMETERS>\n\t</CUSTOMER>\n';
+  });
+  xml += '</CUSTOMERS>';
+  return xml;
+}
 
-    xml += '\t\t</PARAMETERS>\n';
-    xml += '\t</CUSTOMER>\n';
+async function uploadToGist(token, content) {
+  const filename = 'samba-import.xml';
+  let url, method, body;
+
+  if (currentGistId) {
+    // Update existing gist
+    url = `https://api.github.com/gists/${currentGistId}`;
+    method = 'PATCH';
+  } else {
+    // Create new gist
+    url = 'https://api.github.com/gists';
+    method = 'POST';
+  }
+
+  body = JSON.stringify({
+    description: 'Samba XML import — generated by samba-transformer',
+    public: false,
+    files: { [filename]: { content } }
   });
 
-  xml += '</CUSTOMERS>';
+  const r = await fetch(url, {
+    method,
+    headers: { Authorization: 'token ' + token, 'Content-Type': 'application/json' },
+    body
+  });
 
-  downloadXML(xml);
-  showStatus(`XML vygenerováno pro ${csvRows.filter(r => r[csvHeaders.indexOf(emailCol)]).length} zákazníků.`, 'ok');
+  if (!r.ok) {
+    const err = await r.json().catch(() => ({}));
+    throw new Error(err.message || `HTTP ${r.status}`);
+  }
+
+  const data = await r.json();
+  currentGistId = data.id;
+  // Raw URL without commit hash — always latest
+  return `https://gist.githubusercontent.com/${data.owner.login}/${data.id}/raw/${filename}`;
 }
 
-function downloadXML(content) {
-  const blob = new Blob(['﻿' + content], { type: 'application/xml;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'samba-import-' + new Date().toISOString().slice(0, 10) + '.xml';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
+// ─── Copy URL ─────────────────────────────────────────────────────────────────
+copyBtn.addEventListener('click', () => {
+  navigator.clipboard.writeText(urlField.value).then(() => {
+    copyBtn.textContent = 'Zkopírováno!';
+    setTimeout(() => copyBtn.textContent = 'Kopírovat', 2000);
+  });
+});
 
 // ─── Reset ────────────────────────────────────────────────────────────────────
 resetBtn.addEventListener('click', () => {
-  csvHeaders = []; csvRows = [];
+  csvHeaders = []; csvRows = []; currentGistId = null;
   mappingCard.classList.add('hidden');
   previewCard.classList.add('hidden');
-  statusEl.className = '';
-  statusEl.style.display = 'none';
+  urlResult.classList.remove('show');
+  ['uploadStatus','generateStatus'].forEach(id => { const el = document.getElementById(id); el.className = 'status-msg'; el.style.display = 'none'; });
   fileInput.value = '';
-  mappingGrid.innerHTML = `
-    <div class="header">Sloupec v CSV</div>
-    <div></div>
-    <div class="header">XML pole</div>
-  `;
+  while (mappingGrid.children.length > 3) mappingGrid.removeChild(mappingGrid.lastChild);
   previewWrap.innerHTML = '';
 });
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-function showStatus(msg, type) {
-  statusEl.textContent = msg;
-  statusEl.className = type;
-  statusEl.style.display = 'block';
-}
-
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function escXml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
-}
+function showStatus(el, msg, type) { el.textContent = msg; el.className = 'status-msg ' + type; }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escXml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;'); }
 </script>
 </body>
 </html>
